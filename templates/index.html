@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text Summarizer</title>
+    <!-- TODO: Add your CSS here -->
+    <style>
+        /* Add your CSS here */
+    </style>
+</head>
+<body>
+    <h1>Text Summarizer</h1>
+    <form id="summarize-form">
+        <textarea id="text-to-summarize" placeholder="Enter text to summarize"></textarea>
+        <button type="submit">Summarize</button>
+    </form>
+    <p id="summarized-text"></p>
+
+    <!-- TODO: Add your JavaScript here -->
+    <script>
+        // Add your JavaScript here
+        document.getElementById('summarize-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+        
+            // TODO: Extract the text from the textarea
+            var text = document.getElementById('text-to-summarize').value;
+        
+            // TODO: Send a POST request to the server
+            fetch('/summarize', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ text: text }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // TODO: Display the summarized text
+                document.getElementById('summarized-text').textContent = data;
+            });
+        });
+        
+    </script>
+</body>
+</html>
