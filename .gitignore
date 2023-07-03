@@ -1,1 +1,7 @@
-prototype
+# Ignore virtual environment files
+prototype/
+.prototype
+venv/
+env/
+.venv/
+.env/
