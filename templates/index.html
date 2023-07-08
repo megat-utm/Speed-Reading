@@ -54,6 +54,15 @@
                 justify-content: center;
             }
 
+            #summarized-form {
+                width: 80%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                scroll-behaviour: scrollable;
+                justify-content: center;
+            }
+
             #text-to-summarize, #summarized-text {
                 width: 100%;
                 height: 200px;
@@ -70,6 +79,10 @@
             #summarized-text {
                 height: 350px;
                 text-align: justify;
+                font-size: 20px;
+                line-height: 1.5; 
+                word-spacing: 5px;
+                letter-spacing: 2px;
             }
 
             button {
@@ -85,23 +98,45 @@
                 cursor: pointer;
             }
 
+            @keyframes typing {
+                from { width: 0 }
+                to { width: 1em }
+            }
+            
+            @keyframes ellipsis {
+                0% { content: ' .'; }
+                33% { content: ' ..'; }
+                67% { content: ' ...'; }
+                100% { content: ' .'; }
+            }
+            
+            .typing:after {
+                content: ' ';
+                animation: ellipsis 1s steps(4, end) infinite;
+            }
+                       
+
             .hidden {
                 display: none;
             }
+
         </style>
     </head>
     <body>
         <div class="form-container">
             <h1>Text Summarizer</h1>
+            <div id="loading" style="display: none;">
+                <div class="loader"></div>
+            </div>
             <form id="summarize-form">
                 <textarea id="text-to-summarize" placeholder="Enter text to summarize"></textarea>
-                <button type="submit">Summarize</button>
+                <button id="submit-button" type="submit">Summarize</button>
             </form>
         </div>
         <br>
         <div class="output-container hidden">
             <h1>Summarized Text</h1>
-            <div id="summarize-form">
+            <div id="summarized-form">
                 <p id="summarized-text" readonly></p>
             </div>
         </div>        
@@ -113,11 +148,18 @@
     // Add your JavaScript here
     document.getElementById('summarize-form').addEventListener('submit', function(event) {
         event.preventDefault();
-
-        // TODO: Extract the text from the textarea
+    
         var text = document.getElementById('text-to-summarize').value;
-
-        // TODO: Send a POST request to the server
+    
+        // Get the submit button
+        var button = document.getElementById('submit-button');
+    
+        // Change the button color and text
+        button.style.backgroundColor = 'grey';
+        button.style.cursor = 'none';
+        button.textContent = 'Summarizing';
+        button.classList.add('typing');
+    
         fetch('/summarize', {
             method: 'POST',
             headers: {
@@ -127,11 +169,21 @@
         })
         .then(response => response.json())
         .then(data => {
-            // TODO: Display the summarized text
-            document.getElementById('summarized-text').textContent = data;
+            button.style.backgroundColor = '#962fbf';
+            button.textContent = 'Summarize';
+            button.classList.remove('typing');
+    
+            document.getElementById('summarized-text').innerHTML = data;
             console.log(data);
-            // Show the output container
             document.querySelector('.output-container').classList.remove('hidden');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            button.style.backgroundColor = '#962fbf';
+            button.textContent = 'Summarize';
+            button.classList.remove('typing');
         });
     });
+    
+
 </script>
