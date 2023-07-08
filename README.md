@@ -1,5 +1,6 @@
 ﻿# Speed-Reading
- ![image](https://github.com/megatirfanzack/Speed-Reading/assets/118198158/3cfe8dea-3c53-45b8-94c5-2c51f317158f)
+![image](https://github.com/megatirfanzack/Speed-Reading/assets/118198158/5753979f-bbcd-40be-bc20-22d86517406e)
+
 
 ## Text Summarization Prototype
 
