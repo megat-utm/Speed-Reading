@@ -63,6 +63,10 @@
                 justify-content: center;
             }
 
+            b{
+                font-weight: bolder;
+            }
+
             #text-to-summarize, #summarized-text {
                 width: 100%;
                 height: 200px;
@@ -130,6 +134,9 @@
             </div>
             <form id="summarize-form">
                 <textarea id="text-to-summarize" placeholder="Enter text to summarize"></textarea>
+                <div class="character-count">
+                    <p id="input-character-count">Characters: 0</p>
+                </div>
                 <button id="submit-button" type="submit">Summarize</button>
             </form>
         </div>
@@ -137,14 +144,30 @@
         <div class="output-container hidden">
             <h1>Summarized Text</h1>
             <div id="summarized-form">
-                <p id="summarized-text" readonly></p>
+                <p id="summarized-text"></p>
             </div>
-        </div>        
+            <div class="character-count">
+                <p id="output-character-count">Characters: 0</p>
+            </div>
+        </div>  
+        <!-- Character counters -->
+              
     </body>
 </html>
 
 <!-- TODO: Add your JavaScript here -->
 <script>
+    function updateCharacterCount() {
+        var inputText = document.getElementById('text-to-summarize').value;
+        var outputText = document.getElementById('summarized-text').textContent;
+        
+        var inputCharacterCount = inputText.length;
+        var outputCharacterCount = outputText.length;
+        
+        document.getElementById('input-character-count').textContent = "Characters: " + inputCharacterCount;
+        document.getElementById('output-character-count').textContent = "Characters: " + outputCharacterCount;
+    }
+
     // Add your JavaScript here
     document.getElementById('summarize-form').addEventListener('submit', function(event) {
         event.preventDefault();
@@ -176,6 +199,8 @@
             document.getElementById('summarized-text').innerHTML = data;
             console.log(data);
             document.querySelector('.output-container').classList.remove('hidden');
+        
+            updateCharacterCount();
         })
         .catch(error => {
             console.error('Error:', error);
@@ -184,6 +209,12 @@
             button.classList.remove('typing');
         });
     });
+    
+    // Call updateCharacterCount whenever input text changes
+    document.getElementById('text-to-summarize').addEventListener('input', function() {
+        updateCharacterCount();
+    });
+    
     
 
 </script>
