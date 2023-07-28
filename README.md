@@ -1,7 +1,7 @@
 ﻿# Speed-Reading
  [Demo Preview](https://github.com/megatirfanzack/Speed-Reading/assets/118198158/88f3c2ef-2abc-4667-89da-7520a257cfe6)
 
- read more about our course project at [Arxiv](https://arxiv.org/submit/5027786/view)
+ read more about our course project at [Arxiv](https://arxiv.org/abs/2307.14544)
 
 ## Text Summarization Prototype
 
